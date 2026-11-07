@@ -1,5 +1,8 @@
 # Minamo Lab Integration — A1–A5 evidence and new-chat handoff
 
+> **Current handoff (7 November 2026):** This file preserves the A1–A5 experiment chronology. It is **not the latest Lab result**. Read the new [B2 functional integration, large-Project capability comparison and acceptance report](2026-11-07-visual-lab-b2-functional-integration-evidence.md) first. B1 V73 introduced server-backed learner contributions, and B2 V74–V76 added question-oriented composition, exact revision diffs, and a live Radio Island runner while keeping Japanese compact. The latest Lab source is `5df0d670e95fda82c7e526b0d5f3e529d2da98a3`; production was not changed. The earlier A5-specific localStorage statements below describe **A5 mode**, not current B1/B2 behaviour.
+
+
 **Status:** Documentation-only integration orientation, updated 6 November 2026 for A5. **No production code, Site, data, or MCP tools changed by this PR.**
 
 ## Read this first
