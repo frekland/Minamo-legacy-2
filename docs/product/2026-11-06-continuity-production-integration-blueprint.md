@@ -1,5 +1,8 @@
 # Minamo Lab Integration — proposed production continuity contract
 
+> **B2 implementation evidence (7 November 2026):** This remains a *proposed production* contract, not authority to modify production. The separate Lab has now implemented optional question-oriented work threads, exact retained revision-diff retrieval and source-linked current/older material on its existing B1 track. See [B2 functional integration evidence and remaining acceptance](2026-11-07-visual-lab-b2-functional-integration-evidence.md). This supersedes the outdated recommendation below to wait for A4/A5 alone: the immediate decision is whether B2's underlying information architecture is worth an independently accepted, opt-in native production slice. The Lab's source-controlled synthetic-chart digest exception and its fixture-specific Radio Island runner are **not** generic production integration requirements. **No production write occurred.**
+
+
 **Status:** Planning document, 6 November 2026. **No implementation or deployment authorization is implied by this document.** Companion: [A1–A5 evidence and handoff](2026-11-06-visual-lab-a1-a4-evidence-handoff.md).
 
 ## Decision in brief
