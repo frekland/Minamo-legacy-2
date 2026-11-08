@@ -13,7 +13,7 @@
 | B2.1 V79 | Source `99bb860c9a63dae69fda9f152b4e24907a3e5ea1`, version `appgprj_6aeba0aa528c81918be19dd51427b2cb~appgver_633d6e7cec6c8191b0d2e0a399389161`, succeeded deployment `appgdep_6af04e7798b48191aca37941d9dd914c` |
 | B2.1 V80 | Source `4b73f209127d76b731fd141ae1f97e57bf442b81`, version `appgprj_6aeba0aa528c81918be19dd51427b2cb~appgver_8dd79aadcabc8191a6eca5f80d66d091`, succeeded deployment `appgdep_6af051e9fd048191acbba4cb7eb38ee9` |
 | B2.1 V81 | Source `9432b569813bf5d4f8e0513fef0a7a22e8cd5a50`, version `appgprj_6aeba0aa528c81918be19dd51427b2cb~appgver_2f56be3a999c8191893dc114949ac4e8`, **succeeded** deployment `appgdep_6af0535dbf9c81919777a5f28d354c80` |
-| B2.1 V82 (final) | Source `dbafe7d752d05e2331b574744b707e814ef9af19`, version `appgprj_6aeba0aa528c81918be19dd51427b2cb~appgver_93efa440c5a8819187ddb975fb034ca3`, deployment `appgdep_6af05475d240819181a719a88f5e70af` (**verify terminal status below**) |
+| B2.1 V82 (final) | Source `dbafe7d752d05e2331b574744b707e814ef9af19`, version `appgprj_6aeba0aa528c81918be19dd51427b2cb~appgver_93efa440c5a8819187ddb975fb034ca3`, **succeeded** deployment `appgdep_6af05475d240819181a719a88f5e70af` (MCP enabled) |
 | Production (read-only check) | Native V116, source `fc93ce4bbcffa4298097b8c7fe50fae75555d072`; public GitHub branch and protected source not assumed identical |
 
 ## 1. Independent fresh-chat installed-MCP acceptance
@@ -107,4 +107,4 @@ Pygbag requires a genuinely built, admitted standalone `--html` fixture and its 
 - Real Chrome: Cherwell Python chart run, save and reload; Radio Island game and resumed turn; Japanese furigana/TTS topic layout; synthetic image and drawing failure. Do not equate tests/HTTP with live UI acceptance.
 - No material deletions or production changes. B2/V77 and earlier deployments remain recoverable.
 
-**Latest hosted verification:** V81 succeeded with MCP enabled. Chrome confirmed that the arbitrary synthetic Project displayed its two separate canonical blocks in B1 **All sections**, rendered the original image after an unrelated Project rev4 MCP update, and showed the accurate missing-licence warning instead of an empty drawing editor. V82 adds individual block headings and disables the unavailable Fullscreen action; its terminal hosting/Chrome status must be confirmed rather than inferred from a successful build.
+**Latest hosted verification:** V82 succeeded with MCP enabled. Chrome confirmed that the arbitrary synthetic Project displayed **Drawing and reasoning** and **Image and evidence** as distinct labelled blocks in B1 **All sections**, rendered the original image after an unrelated Project rev4 MCP update, showed the accurate missing-licence warning instead of an empty drawing editor, and disabled unavailable Save/Fullscreen actions. The final Cherwell B1 page still displayed the actual revision-36 browser observation and exact input provenance in its censoring thread. This is host/browser evidence, not just source analysis.
