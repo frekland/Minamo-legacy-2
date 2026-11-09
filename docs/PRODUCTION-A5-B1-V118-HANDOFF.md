@@ -50,7 +50,17 @@ Cloud Browser on **actual production**:
 - TEST Simulation Playground: original authored HTML code remained `speed: 3`; separately saved a `speed: 8` code variation + prediction under its exact code part, reloaded and read back entry rev1. Editing mode opened with existing Project content, then Cancel returned to reading without modification.
 - Six layout tabs remain present. Deep execution of Python Canvas, tldraw, Pygbag and responsive phone hardware was **not** repeated as part of this bounded acceptance; their native components were retained.
 
-**Installed ChatGPT MCP status:** The deployed Site advertises both new tools and hosted MCP is present, but the connected production plugin in this conversation still exposes the *old* tool inventory. The owner must reinstall/refresh the production Minamo plugin; only then can a live installed-plugin read → exact-revision GPT review → browser edit → stale-feedback invalidation → cross-chat readback be honestly claimed. The local JSON-RPC/D1 version of this loop has passed.
+**Installed ChatGPT MCP status:** **PASS after owner plugin reinstall (9 November 2026).** The refreshed production plugin exposes both new B1 tools. A real installed-plugin read/review, exact idempotent replay, browser edit, stale review rejection, post-edit MCP readback and reload were exercised. This is a same-conversation, cross-interface test; a literally fresh ChatGPT conversation remains an independent follow-up.
+
+## Installed-MCP D1 ↔ browser acceptance after plugin refresh
+
+- `read_project_contributions` independently retrieved the saved synthetic Japanese dialogue response at exact `dialogue/turns`, learner revision **2**, Project revision **1**, and the computing `test-code/tc-html` code variation at entry revision **1**, Project revision **7**. It did not infer data from the preceding browser UI.
+- `get_project_composition` confirmed the canonical original Japanese dialogue remained at Project revision **1**, with exact authored turns, while the learner addition lived separately in B1 storage.
+- Explicit `review_project_contribution`, operation `v118-ja-dialogue-review-20261109`, used expectedGeneration `legacy@0`, expectedProjectRev `1`, expectedRevision `2`. It committed **entry revision 3** and a `suggestion` with a specific alternative `二つ目の角で右に曲がってください`; marked `gpt-provisional` and `reviewedContributionRevision:2`. This was textual feedback, not a pronunciation assessment.
+- Repeating the exact operation returned `replayed:true` and the same revision 3, without another write. The live Project visibly showed the suggestion when expanded.
+- A browser edit changed the learner text to `この道をまっすぐ進んで、二つ目の角で右に曲がってください。` and saved **revision 4**. The feedback button disappeared. MCP then read revision 4 with `review:null` and unchanged canonical Project revision 1.
+- An attempted new review against stale expectedRevision 3 was **rejected** with `revision_conflict`; no revision or review was added. Replaying the original operation after that edit still returned a historical replay receipt, **without resurrecting feedback**. Final MCP read and browser reload confirmed revision 4, `review:null`.
+- Scope limit: this proves installed production MCP/tool continuity with the browser in this chat; it does not establish a new, memory-independent ChatGPT conversation's comprehension, which should be tested separately when desired.
 
 ## Follow-up boundaries
 
