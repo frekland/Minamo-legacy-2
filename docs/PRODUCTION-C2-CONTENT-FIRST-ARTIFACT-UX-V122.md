@@ -29,7 +29,7 @@ No Activity/Attempt workflow, new Project shell, mandatory checkpoints, B2 threa
 
 ### Live Cloud Browser observations
 
-- On V120, Japanese/Computing Projects devoted a tall opening band to the Project name, description, section label and topic strip. V121/V122 reduce that band by roughly a screenful of text lines; actual content begins visibly higher. Existing sidebar, section rail, Notes dock and rich language TTS controls remain.
+- On V120, Japanese/Computing Projects devoted a tall opening band to the Project name, description, section label and topic strip. V121/V122 reduce that band by roughly 50–60 pixels in the checked desktop views; actual content begins visibly higher. Existing sidebar, section rail, Notes dock and rich language TTS controls remain.
 - Japanese reading Project `test-language-japanese-pr85-20261105`: content, inline Play/Slow buttons and translation disclosure visible after reload. Audible synthesis on a user's own device was not remeasured in C2.
 - Computing `test-simulation-playground-layouts-20261103`: rich paragraphs, callout, six-layout navigation and code remain readable after CSS changes.
 - Technical Project `test-pr83-release-20261103`: idle Python Canvas now shows a useful prompt, not an oversized blank surface. Clicking Run loaded bundled Python and painted a **blue circle on a white canvas**; no simulated-success claim was made.
