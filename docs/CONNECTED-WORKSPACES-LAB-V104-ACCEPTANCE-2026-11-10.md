@@ -40,6 +40,8 @@ This genuinely fresh conversation:
 - Read `get_minamo_working_context` with *only* Project focus through actual installed Lab MCP. It selected the Project and independently returned both exact saved relations. The Project's legacy `record.links` was **empty**. It also found an earlier real user-authored Radio Island Note as separately dated continuity evidence, distinguishing it from synthetic GPT execution.
 - Opened the deployed Lab through Cloud Browser: six-section long Project navigation, exact related Note and Library article under Decisions, Project Connections, Your Work, expanded terminal evidence and Unlinked filter. V104 readback showed the Note labelled with the correct Project, no longer “Unlinked”, and no longer “learner-provided”; Unlinked results did not include it.
 
+**Preference toggle follow-up:** Using the installed `set_minamo_collaboration_preferences` tool, changed the Radio Island Project's exact per-Project revision 0 to `relatedMaterial:none` (rev 1). The next `get_minamo_working_context` response kept the explicit Project but returned zero relations and an explicit disabled-by-preference gap. Restored an empty Project override at revision 2; the following MCP read returned both exact Note and Library relations. No global preference was changed. This validates retrieval suppression and inheritance, not autonomous GPT suggestion behaviour.
+
 This establishes that **one new GPT conversation can discover and meaningfully extend retained work** through installed MCP. It does *not* prove that a further completely fresh conversation with a refreshed tool manifest will author naturally without checkpoint language; that remains a specific next acceptance.
 
 ## Preference and checkpoint acceptance status
@@ -48,7 +50,7 @@ This establishes that **one new GPT conversation can discover and meaningfully e
 | --- | --- | --- |
 | Stored global and per-Project preferences across reload / MCP | Server-backed revisions, real browser write and MCP readback | Verified for context depth |
 | Context depth changes retrieval limit | Real Project concise override gave effective limit 5; restored inheritance | Verified |
-| Saved material preference changes related read projection | Server implementation and focused tests; no extended UI acceptance yet | Partial |
+| Saved material preference changes related read projection | Actual installed MCP: synthetic Radio Island Project override `relatedMaterial:none` returned zero relationships and `related-material-disabled-by-preference`; restoring `{}` to global inheritance returned its exact Note and Article again | Verified |
 | Initiative may-offer hints | Server returns preference, but actual model behaviour is not deterministically enforced | Partial / advisory |
 | New checkpoint-free manuscript creation and revision | Focused end-to-end source tests; fresh deployed WebMCP description and policy | Verified at server/browser preview |
 | **Installed ChatGPT MCP authoring-tool description** | Current chat's `publish_minamo_manuscript` definition still cached older mandatory Intent/Outcome/Checkpoint wording after deployment | **Not yet accepted; connector reinstall and fresh conversation required** |
