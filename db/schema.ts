@@ -83,6 +83,18 @@ export const workspaceActivity=sqliteTable('v2_activity',{
  owner:text('owner').notNull(),id:text('id').notNull(),family:text('family').notNull(),recordId:text('record_id').notNull(),verb:text('verb').notNull(),actor:text('actor').notNull(),synthetic:integer('synthetic').notNull(),at:text('at').notNull(),
 },t=>[primaryKey({columns:[t.owner,t.id]})]);
 
+// Separate learner-authored additions: these never rewrite canonical Project passages.
+export const projectContributions=sqliteTable('v2_project_contributions',{
+ owner:text('owner').notNull(),projectId:text('project_id').notNull(),sectionId:text('section_id').notNull(),partId:text('part_id').notNull(),id:text('id').notNull(),
+ revision:integer('revision').notNull(),kind:text('kind').notNull(),columnsJson:text('columns_json').notNull(),cellsJson:text('cells_json').notNull(),reviewJson:text('review_json'),deleted:integer('deleted').notNull().default(0),updatedAt:text('updated_at').notNull(),lastOperation:text('last_operation').notNull(),
+},t=>[primaryKey({columns:[t.owner,t.projectId,t.id]}),index('v2_project_contributions_scope').on(t.owner,t.projectId,t.sectionId,t.partId)]);
+export const projectContributionRevisions=sqliteTable('v2_project_contribution_revisions',{
+ owner:text('owner').notNull(),projectId:text('project_id').notNull(),id:text('id').notNull(),revision:integer('revision').notNull(),snapshotJson:text('snapshot_json').notNull(),
+},t=>[primaryKey({columns:[t.owner,t.projectId,t.id,t.revision]})]);
+export const projectContributionOperations=sqliteTable('v2_project_contribution_operations',{
+ owner:text('owner').notNull(),id:text('id').notNull(),hash:text('hash').notNull(),nonce:text('nonce').notNull(),receiptJson:text('receipt_json').notNull(),
+},t=>[primaryKey({columns:[t.owner,t.id]})]);
+
 export const privateImages=sqliteTable('v2_images',{
  owner:text('owner').notNull(),id:text('id').notNull(),uploadId:text('upload_id').notNull(),digest:text('digest').notNull(),mime:text('mime').notNull(),
  bytes:integer('bytes').notNull(),width:integer('width').notNull(),height:integer('height').notNull(),state:text('state').notNull(),revision:integer('revision').notNull(),expiresAt:text('expires_at'),objectKey:text('object_key').notNull(),

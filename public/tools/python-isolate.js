@@ -1,4 +1,4 @@
-// Adapted from Minamo's earlier local Python sandbox experiment.
+// Selectively reused from frekland/Minamo f8b11de4ff7e8a695edb08e12ae959a10729e97d.
 // This document must only run with sandbox=allow-scripts, without allow-same-origin.
 function runtime(){
  self.onmessage=async({data})=>{try{self.postMessage({phase:'loading bundled runtime scripts'});const assets=data.assets,decode=name=>new TextDecoder().decode(assets[name]);

@@ -33,9 +33,9 @@ test('table inline ranges preserve TSV coordinates across emoji and rich cell ca
 });
 
  test('canonical inline reading links retain native href but use same workspace navigation',()=>{
- const url='https://previous.minamo.example/?view=library&family=article&id=ref-1';assert.deepEqual(inlineReadingDestination(url),{view:'library',id:'ref-1',target:{recordFamily:'article'}});
- assert.equal(inlineReadingDestination('https://example.org/?view=library&family=article&id=ref-1'),null);assert.equal(inlineReadingDestination(url.replace('previous.minamo.example','legacy.minamo.example')),null);assert.deepEqual(inlineReadingDestination(url.replace('previous.minamo.example','minamo.example')),inlineReadingDestination(url));assert.equal(inlineReadingDestination(url+'&part=p1'),null);assert.equal(inlineReadingDestination(url.replace('view=library','view=work')),null);
- const p={id:'p',kind:'paragraph',text:'Read reference',inline:[{start:5,end:14,kind:'link',url}]};const html=partHtml(p,article);assert.match(html,/href="https:\/\/minamo.example/);assert.equal(p.inline[0].url,url,'saved source URL remains byte-identical');assert.doesNotMatch(html,/target="_blank"/);
+ const url='https://minamo-v2.jscymru.chatgpt.site/?view=library&family=article&id=ref-1';assert.deepEqual(inlineReadingDestination(url),{view:'library',id:'ref-1',target:{recordFamily:'article'}});
+ assert.equal(inlineReadingDestination('https://example.org/?view=library&family=article&id=ref-1'),null);assert.equal(inlineReadingDestination(url.replace('minamo-v2','minamo-legacy')),null);assert.deepEqual(inlineReadingDestination(url.replace('minamo-v2','minamo')),inlineReadingDestination(url));assert.equal(inlineReadingDestination(url+'&part=p1'),null);assert.equal(inlineReadingDestination(url.replace('view=library','view=work')),null);
+ const p={id:'p',kind:'paragraph',text:'Read reference',inline:[{start:5,end:14,kind:'link',url}]};const html=partHtml(p,article);assert.match(html,/href="https:\/\/minamo.jscymru.chatgpt.site/);assert.equal(p.inline[0].url,url,'saved source URL remains byte-identical');assert.doesNotMatch(html,/target="_blank"/);
  });
 
  test('compiled generic graphs stay editable without conversion to state transitions',()=>{
@@ -43,7 +43,7 @@ test('table inline ranges preserve TSV coordinates across emoji and rich cell ca
  });
 
  test('native canonical inline href retains validated active learning scope and the exact ordinary navigation target',()=>{
- const url='https://minamo.example/?view=library&family=article&id=ref-1&rendition=edition-1&section=details&part=example';
+ const url='https://minamo.jscymru.chatgpt.site/?view=library&family=article&id=ref-1&rendition=edition-1&section=details&part=example';
  const part={id:'p',kind:'paragraph',text:'Read reference',inline:[{start:5,end:14,kind:'link',url}]};
  for(const scope of [{learningSpace:'computing'},{learningSpace:'languages',language:'ja'}]){
   const html=scopedPartHtml(part,article,scope),href=/href="([^"]+)"/.exec(html)[1].replaceAll('&amp;','&'),params=new URL(href).searchParams;

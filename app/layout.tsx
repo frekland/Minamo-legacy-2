@@ -5,4 +5,5 @@ import "./globals.css";
 import "./theme.css";
 import "./workspace.css";
 export const metadata:Metadata={title:"Minamo",icons:{icon:"/identity/minamo-icon.svg"},description:"Private learning workspace."};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
+import {FuriganaProvider} from './furigana-preference';
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><FuriganaProvider>{children}</FuriganaProvider></body></html>}

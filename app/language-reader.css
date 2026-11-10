@@ -1,5 +1,6 @@
 .lr-reading-controls,.lr-word-choices,.lr-card-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-block:10px}
 .lr-reading-controls button,.lr-word-choices button,.lr-word-card button,.lr-recall button{font:inherit;font-size:13px;line-height:1.5;padding:7px 10px;min-height:36px;border:1px solid var(--mn-border-control);border-radius:6px;background:var(--mn-surface);color:var(--mn-text)}
+.lr-reading-controls .lr-furigana-toggle{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .55rem;min-height:30px;font-size:12px}
 .lr-word-choices button[aria-pressed=true]{background:var(--mn-selected);border-color:var(--mn-interactive)}
 .lr-word-tools>p,.lr-provenance,.lr-word-card small,.lr-recall>p{font-size:13px;line-height:1.65;color:var(--mn-text-muted)}
 .lr-word-card{border-left:3px solid var(--mn-interactive);background:var(--mn-surface);padding:16px 18px;margin-block:14px;max-width:78ch;overflow-wrap:anywhere}

@@ -1,10 +1,6 @@
 import vinext from "vinext";
 import { defineConfig } from "vite";
-import {existsSync,readFileSync} from "node:fs";
-import {fileURLToPath} from "node:url";
-const privateHosting=fileURLToPath(new URL("./.openai/hosting.json",import.meta.url));
-const exampleHosting=fileURLToPath(new URL("./.openai/hosting.example.json",import.meta.url));
-const hostingConfig=JSON.parse(readFileSync(existsSync(privateHosting)?privateHosting:exampleHosting,"utf8"));
+import hostingConfig from "./.openai/hosting.json";
 import { readExecutionProfile } from "./scripts/execution-profile.mjs";
 import { configureToolEnvironment } from "./scripts/tool-environment.mjs";
 import { sites } from "./scripts/vite/sites-vite-plugin";

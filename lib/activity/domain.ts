@@ -17,8 +17,9 @@ import {PROJECT_LIMITS,PROJECT_RUNTIMES,projectCommands} from '../challenge-exch
 import {compactTerminalSource,terminalCaptureSummaries} from '../note-terminal';
 import {buildRecordLink} from '../reading-links';
 const id=z.string().regex(/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$/),purpose=z.string().min(1).max(500),ref=z.object({family:z.enum(['journey','investigation','article','area','note','source','experiment','run']),id,relation:z.enum(['related','explains','applies','contrasts','supports','extends','source','next']).optional(),reason:z.string().max(500).optional()}).strict();
-const scopeFields={learningSpace:z.enum(['all','computing','languages','unclassified']).optional(),language:z.enum(['ja','zh-Hans','zh-Hant','fr','es','el','de','sv']).optional()};
-const learningScopeSchema=z.object({version:z.literal(1),spaces:z.array(z.enum(['computing','languages'])).min(1).max(2),languages:z.array(z.enum(['ja','zh-Hans','zh-Hant','fr','es','el','de','sv'])).min(1).max(8).optional(),provenance:z.enum(['authored','classification'])}).strict();
+const languageTag=z.string().min(2).max(48).regex(/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/);
+const scopeFields={learningSpace:z.enum(['all','computing','languages','unclassified']).optional(),language:languageTag.optional()};
+const learningScopeSchema=z.object({version:z.literal(1),spaces:z.array(z.enum(['computing','languages'])).min(1).max(2),languages:z.array(languageTag).min(1).max(8).optional(),provenance:z.enum(['authored','classification'])}).strict();
 export const publishActivitySchema=z.object({purpose,learningScope:learningScopeSchema.optional(),operationId:id,id,expectedRev:z.number().int().min(1).optional(),expectedGeneration:z.string().max(160).optional(),title:z.string().min(1).max(180),body:z.string().max(12000).default(''),links:z.array(ref).max(24).default([]),synthetic:z.boolean().default(false),activity:activityCartridgeSchema}).strict();
 export const recordAttemptSchema=z.object({purpose,operationId:id,id,expectedRev:z.number().int().min(1).optional(),expectedGeneration:z.string().max(160).optional(),title:z.string().min(1).max(180).default('Activity attempt'),synthetic:z.boolean().default(false),attempt:activityAttemptSchema}).strict();
 export const readActivitySchema=z.object({purpose:purpose.optional(),id,rendition:z.string().max(240).optional(),check:z.object({blockId:id,input:practiceInputSchema}).strict().optional()}).strict();
@@ -42,7 +43,7 @@ export async function getActivityContext(env:Cloudflare.Env,owner:string,input:u
  const value=parse(z.object({purpose,...scopeFields,query:z.string().min(1).max(200),limit:z.number().int().min(1).max(20).default(8),includeSynthetic:z.boolean().default(false),cursor:z.string().max(1200).optional()}).strict(),input);
  return freshFirstPageRead(value.cursor,()=>composeActivityContext(env,owner,value));
 }
-async function composeActivityContext(env:Cloudflare.Env,owner:string,value:{purpose:string;learningSpace?:'all'|'computing'|'languages'|'unclassified';language?:'ja'|'zh-Hans'|'zh-Hant'|'fr'|'es'|'el'|'de'|'sv';query:string;limit:number;includeSynthetic:boolean;cursor?:string}){
+async function composeActivityContext(env:Cloudflare.Env,owner:string,value:{purpose:string;learningSpace?:'all'|'computing'|'languages'|'unclassified';language?:string;query:string;limit:number;includeSynthetic:boolean;cursor?:string}){
  const namespaceVersion=async()=>Number((await env.DB!.prepare('SELECT version FROM v2_namespace_versions WHERE owner=?').bind(owner).first<{version:number}>())?.version??0);
  const learningScope=parseLearningScopeQuery(value);
  const startVersion=await namespaceVersion(),page=await queryRecordPage(env,owner,{...learningScope,query:value.query,limit:value.limit,cursor:value.cursor});

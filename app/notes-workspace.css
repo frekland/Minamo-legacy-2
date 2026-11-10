@@ -57,6 +57,10 @@
 .nw-workspace .rn-window-actions .nw-note-menu button:hover,.nw-workspace .rn-window-actions .nw-note-menu a:hover{background:var(--mn-surface-secondary)}
 .nw-note-menu label{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px}.nw-note-menu select{min-height:36px;max-width:140px}
 .nw-creation-context{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin:2px 0 10px;font-size:12px;line-height:1.5;color:var(--mn-text-muted);overflow-wrap:anywhere}.nw-creation-context button{background:transparent;color:var(--mn-interactive);text-align:left;text-decoration:underline;padding:4px;min-height:32px;font-size:12px}
+.nw-creation-context strong{font-weight:650;color:var(--mn-text)}.nw-creation-context>small{flex-basis:100%;font-size:11px;line-height:1.5;color:var(--mn-text-muted)}
+.nw-creation-context .nw-link-chip{display:inline-flex;align-items:center;gap:5px 8px;flex-wrap:wrap;padding:3px 8px;border:1px solid var(--mn-border);border-radius:5px}.nw-creation-context .nw-link-chip button{min-height:28px}
+.nw-creation-context a{color:var(--mn-interactive);text-underline-offset:2px;min-height:32px;display:inline-flex;align-items:center}.nw-creation-context a:focus-visible{outline:2px solid var(--mn-focus);outline-offset:2px}
+.nw-linked-contexts{margin:0 0 10px;border:1px solid var(--mn-border);border-radius:5px;padding:8px 10px;color:var(--mn-text-muted);font-size:12px;line-height:1.5;overflow-wrap:anywhere}.nw-linked-contexts>summary{cursor:pointer;color:var(--mn-interactive);min-height:28px}.nw-linked-contexts>div{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 8px;padding:5px 0;border-top:1px solid var(--mn-border)}.nw-linked-contexts button{color:var(--mn-interactive);background:transparent;text-decoration:underline;min-height:32px;padding:4px}.nw-linked-contexts small{display:block;margin-top:6px}
 .nw-section-inspection{border:1px solid var(--mn-border);border-radius:5px;padding:9px 11px;margin:0 0 10px;font-size:13px;line-height:1.6}.nw-section-inspection>summary{cursor:pointer;color:var(--mn-interactive)}.nw-section-inspection section{padding-block:6px;border-top:1px solid var(--mn-border)}.nw-section-inspection h4{margin:4px 0;font-size:15px}.nw-section-inspection pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:220px;overflow:auto;margin:4px 0 10px;font-size:13px}.nw-section-inspection a{color:var(--mn-interactive);text-decoration:underline}
 .nw-retention-warning{padding:10px;margin-top:10px;border:1px solid var(--mn-status-danger);border-radius:5px;font-size:13px}.nw-retention-warning textarea{width:100%;min-height:160px;color:var(--mn-text);background:var(--mn-canvas);font:13px/1.5 ui-monospace,monospace}.nw-retention-warning button{min-height:36px}
 .nw-writing-field-label{font-size:12px!important;line-height:1.5;color:var(--mn-text-muted);margin:3px 0 8px!important}
@@ -139,3 +143,90 @@
 .nw-inline-title{display:flex;gap:8px;align-items:center;font:13px system-ui;margin:8px 0}.nw-inline-title input{min-width:0;flex:1;min-height:44px;font:500 16px system-ui;color:var(--mn-text);background:transparent;border:0;border-bottom:1px solid var(--mn-border-control)}.writing-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.writing-comparison section{min-width:0}.writing-comparison pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:280px;overflow:auto}.writing-comparison time{display:block;font-size:12px}@media(max-width:640px){.writing-comparison{grid-template-columns:1fr}}
 
 .nw-pin-destinations{position:absolute;right:16px;top:52px;z-index:12;max-width:320px;padding:12px;border:1px solid var(--border,#ddd);border-radius:10px;background:var(--background,#fff);box-shadow:0 8px 28px #0002}.nw-pin-destinations>div{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px}.nw-pin-destinations a{overflow-wrap:anywhere}
+
+/* The Note source is one navigable relationship, not a second list of the same link. */
+.nw-source-summary{display:flex;align-items:center;gap:6px;min-width:0;max-width:100%;flex:1 1 auto}
+.nw-source-prefix{flex:none;color:var(--mn-text-muted)}
+.nw-source-summary>a{display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;font-weight:600}
+.nw-source-summary>strong{flex:none;font-size:11px;font-weight:500;color:var(--mn-text-muted)}
+.nw-source-options{position:relative;margin-left:auto;flex:none}
+.nw-source-options>summary{display:flex;align-items:center;justify-content:center;list-style:none;cursor:pointer;width:30px;height:30px;border-radius:6px;color:var(--mn-text-muted)}
+.nw-source-options>summary::-webkit-details-marker{display:none}
+.nw-source-options>summary:hover,.nw-source-options[open]>summary{background:var(--mn-surface-secondary);color:var(--mn-text)}
+.nw-source-options>div{position:absolute;top:calc(100% + 3px);right:0;z-index:10;width:min(270px,calc(100vw - 28px));padding:6px;border:1px solid var(--mn-border-control);border-radius:8px;background:var(--mn-surface);box-shadow:0 8px 24px #0006}
+.nw-source-options>div>button{display:block;width:100%;text-align:left;color:var(--mn-text-body);font-size:12px;line-height:1.4;text-decoration:none;padding:9px 10px;border-radius:5px}
+.nw-source-options>div>button:hover{background:var(--mn-surface-secondary)}
+.nw-linked-contexts a{color:var(--mn-interactive);text-underline-offset:2px;min-width:0;flex:1;overflow-wrap:anywhere}
+.nw-pin-list-toggle{display:flex!important;align-items:center;gap:5px;white-space:nowrap;font-size:12px}
+.nw-pin-list-count{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;padding:1px 4px;border-radius:10px;background:var(--mn-surface-secondary);font-size:11px}
+@media(max-width:700px){
+ .nw-workspace .nw-tabs:has(>.nw-tab:only-of-type)>.nw-tab{display:none}
+ .nw-workspace .nw-tabs:has(>.nw-tab:only-of-type){justify-content:flex-end;min-height:34px;padding:2px 7px}
+ .nw-workspace .nw-inline-title{margin:3px 0 2px;gap:0}
+ .nw-workspace .nw-title-caption{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+ .nw-workspace .nw-inline-title input{min-height:38px;font-weight:600;font-size:17px;padding:4px 3px}
+ .nw-workspace .nw-creation-context{margin:0 0 6px;gap:4px 8px;min-height:0}
+ .nw-workspace .nw-source-summary>a{font-size:12px}
+ .nw-workspace .nw-pin-list-label{display:none}
+ .nw-workspace .nw-pin-list-toggle{padding:3px!important;min-width:26px;min-height:30px}
+}
+
+/* Mobile Notes keep the essential tools visible and place secondary actions in More. */
+.nw-more-mobile,.nw-mobile-additional{display:none}
+@media(max-width:700px){
+ .nw-more-desktop{display:none}.nw-more-mobile{display:inline}
+ .nw-workspace .nw-format-tools [role=toolbar]{flex-wrap:nowrap;overflow:visible;gap:3px}
+ .nw-workspace .nw-format-tools [role=toolbar] .nw-secondary-tool,
+ .nw-workspace .nw-format-tools [role=toolbar] .nw-history-tool{display:none!important}
+ .nw-workspace .nw-format-tools .nw-mobile-additional{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding-bottom:8px;margin-bottom:6px;border-bottom:1px solid var(--mn-border)}
+ .nw-workspace .nw-mobile-additional button{display:flex;align-items:center;gap:6px;justify-content:flex-start;padding:7px!important}
+ .nw-more-tools>summary{min-height:34px;padding-inline:9px}
+}
+
+/* The Note tab is the single title/rename control on both screen sizes. */
+@media(max-width:700px){
+ .nw-workspace .nw-tabs:has(>.nw-tab:only-of-type)>.nw-tab{display:flex}
+ .nw-workspace .nw-tabs:has(>.nw-tab:only-of-type){justify-content:space-between}
+ .nw-workspace .nw-tab{min-width:0;max-width:calc(100% - 52px)}
+ .nw-workspace .nw-tab>button[role=tab]{min-width:0;max-width:calc(100% - 62px);text-overflow:ellipsis}
+}
+/* A narrow desktop dock needs the same compact toolbar as a phone.
+   Width is the writing area, not the browser viewport. */
+.nw-workspace .nw-writing{container:notes-writing / inline-size}
+@container notes-writing (max-width:570px){
+ .nw-workspace .nw-more-desktop{display:none}
+ .nw-workspace .nw-more-mobile{display:inline}
+ .nw-workspace .nw-format-tools [role=toolbar]{flex-wrap:nowrap;overflow:visible;gap:3px}
+ .nw-workspace .nw-format-tools [role=toolbar] .nw-secondary-tool,
+ .nw-workspace .nw-format-tools [role=toolbar] .nw-history-tool{display:none!important}
+ .nw-workspace .nw-format-tools .nw-mobile-additional{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding-bottom:8px;margin-bottom:6px;border-bottom:1px solid var(--mn-border)}
+ .nw-workspace .nw-mobile-additional button{display:flex;align-items:center;gap:6px;justify-content:flex-start;padding:7px!important}
+}
+
+/* C8: the dock title, save status and actions need separate lanes at narrow widths. */
+.nw-workspace .rn-notes-header{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"title sync" "actions actions";align-items:center;gap:2px 8px;padding:7px 10px;min-height:76px}
+.nw-workspace .rn-notes-header>strong{grid-area:title;font:700 14px/1.3 system-ui,-apple-system,sans-serif;min-width:0}
+.nw-workspace .rn-notes-header>output{grid-area:sync;min-width:0;max-width:100%;margin-left:0;text-align:right;font:400 12px/1.4 system-ui,-apple-system,sans-serif}
+.nw-workspace .rn-window-actions{grid-area:actions;min-width:0;width:100%;justify-content:flex-end;gap:3px}
+.nw-workspace .nw-pin-list-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.nw-workspace .nw-pin-list-toggle{padding:3px!important;min-width:29px;justify-content:center}
+.nw-workspace .nw-tabs{scrollbar-width:none;min-width:0}
+.nw-workspace .nw-tabs::-webkit-scrollbar{display:none}
+.nw-workspace .nw-tab{min-width:0;max-width:calc(50% - 28px);flex:0 1 auto;transition:background-color .15s,border-color .15s}
+.nw-workspace .nw-tab:has([aria-selected=true]){max-width:195px}
+.nw-workspace .nw-tab>button[role=tab]{display:block;min-width:0;max-width:none;flex:1 1 auto;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw-workspace .nw-tab>button:not([role=tab]){flex:none}
+.nw-desktop-bar,.nw-desktop-bar>button,.nw-desktop-bar .nw-open-summary,.nw-desktop-bar .nw-tab,.nw-desktop-bar .nw-recent-trigger{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important}
+.nw-desktop-bar>button{font-size:13px!important;font-weight:600;letter-spacing:0}
+@media(max-width:700px){.nw-workspace .rn-notes-header{padding:5px 8px;min-height:75px}.nw-workspace .nw-tab{max-width:calc(50% - 26px)}.nw-workspace .nw-tab:has([aria-selected=true]){max-width:55%}}
+@media(prefers-reduced-motion:reduce){.nw-workspace .nw-tab{transition:none}}
+
+/* C9: the desktop Notes bar owns open-note tabs; the dock is one writing surface. */
+.nw-mobile-note-switcher{display:none}
+@media(max-width:700px){
+ .nw-workspace .nw-mobile-note-switcher{display:flex;align-items:center;gap:5px;min-width:0;padding:6px 9px 7px;border-bottom:1px solid var(--mn-border)}
+ .nw-workspace .nw-mobile-note-switcher>select,.nw-workspace .nw-mobile-note-switcher>input{flex:1;min-width:0;max-width:none;min-height:40px;border:1px solid var(--mn-border-control);border-radius:8px;background:var(--mn-surface-secondary);color:var(--mn-text-body);font:600 13px/1.3 system-ui;padding:7px 9px;text-overflow:ellipsis}
+ .nw-workspace .nw-mobile-note-switcher>button{display:inline-flex;flex:0 0 37px;align-items:center;justify-content:center;min-height:40px;background:transparent;color:var(--mn-text-body);border-radius:7px}
+ .nw-workspace .nw-mobile-note-switcher>button:hover{background:var(--mn-surface-secondary)}
+ .nw-workspace .nw-mobile-note-switcher>.nw-new-menu>summary{min-width:38px;min-height:40px;border-radius:8px}
+}
