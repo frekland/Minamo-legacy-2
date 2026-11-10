@@ -63,3 +63,34 @@ No compulsory stages, achievements, checkpoints, scored attempts, GPT handoff ca
 
 ## Status
 Architecture scope agreed. Baseline reconciliation and lab replacement are tracked separately from feature implementation. Do not describe the feature work as already complete.
+
+## 10 November direction refinement — cross-domain continuity (after V124)
+
+**Decision:** preserve all accepted Python/code-package work as a native artefact capability; it is neither shelved nor the organising principle for Minamo. Shift the **next implementation and acceptance slices** toward continuity that works for language, scientific, creative and computing Projects alike. The owner explicitly approved this change of emphasis without stopping PR #99.
+
+### Shared content-neutral contract
+
+1. A Project can be just freeform canonical material. **Work questions are optional**; a Project with no work threads still needs usable revision, Note, Library and artefact continuity.
+2. Keep stable IDs, exact editions, source attribution, CAS and owner rights across prose, dialogue, exercises, research data, diagrams, photos, drafts and code. Treat content-specific renderers and executors as adapters, not the underlying relationship model.
+3. Separate structural facts (a source was revised; an exact reference cites a saved edition; a derived artefact names its inputs) from authored interpretations (a conclusion changed; a grammar explanation was corrected; a plot decision was abandoned). Detect the first deterministically; never fabricate the second.
+4. Show revisions, withdrawals and exact relationships in context, with minimum added UI chrome. Do not require users or GPT to maintain a second record merely to preserve continuity.
+5. Allow explicit, sourced updates to questions, notes and conclusions. Do not silently rewrite an authored summary or infer learner achievement, correctness, experimental results or creative intent.
+6. Code packages remain a supported specialised source/artefact adapter, with further import/edit/execution work queued for an appropriate slice. No regression or schema withdrawal is implied by changing the current test focus.
+
+### Required cross-domain acceptance matrix
+
+| Domain | Sustained Project materials | What continuity must demonstrate | Negative control |
+| --- | --- | --- | --- |
+| Japanese | Dialogue, grammar, flashcards, learner sentences, TTS/furigana, Notes and Library | A fresh GPT conversation retrieves the appropriate saved editions and can continue practice without ritual Work authoring | Unrelated grammar and unverified mastery are not attached automatically |
+| Science/research | Real cited sources, dataset/method, visualisations, evolving hypothesis and contradictory evidence | Corrected derivation and source revision are discoverable; original input and contrary claims remain attributable | A chart edit is not automatically called a disproven hypothesis |
+| Creative | Multi-part prose, illustration/drawing, character/location notes and revisions | Current material and relevant older editions remain navigable, without cluttering the reading experience | Coincidentally matching names do not fabricate relationships |
+| Computing (retained) | Radio Island multi-file Python, tests, Canvas observations and exact ZIPs | Existing source integrity, Work references and executable evidence remain intact | Package membership alone does not invent a Work connection |
+
+### Execution order
+
+- **First:** use existing Lab material plus deliberate new, explicitly constructed non-computing Projects where necessary to probe the actual retrieval, edit and UI experience. Keep test authorship obvious; no invented learner sessions or scientific observations.
+- **Next:** implement one or more content-neutral continuity improvements demonstrated by those observations, using exact source IDs/revisions and focused ownership/revision tests.
+- **Then:** repeat fresh-chat MCP and browser acceptance in at least two non-computing domains. Apply changes only to the isolated Lab, update this PR after each accepted deployment, and leave production V149 unchanged.
+- **After that:** reassess optional Work UX, Notes/Library relationships, collaboration preferences, legacy read-only checkpoint language and native package depth against the cross-domain evidence.
+
+Do not treat the example Projects as prescribed Project templates or impose fields, stages or required Work threads on real users.
