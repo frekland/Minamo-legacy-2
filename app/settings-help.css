@@ -11,3 +11,25 @@
 .sh-settings[open],.sh-help[open]{display:flex;flex-direction:column}.sh-help[open]{height:min(760px,calc(100dvh - 40px))}.sh-dialog-header,.sh-help-search,.sh-help-filters,.sh-dialog-footer{flex-shrink:0}.sh-help-results{flex:1;min-height:0;max-height:none}.sh-settings-shell{flex:1;min-height:0}.sh-settings-panel{min-height:0}
 
 .sh-settings-saved{font:12px/1.4 system-ui;color:var(--mn-text-muted)}
+
+/* Modal content must be opaque in both themes. The legacy dialog backdrop
+   surface was translucent and made light-mode labels unreadable. */
+.wp-settings.sh-settings{background:var(--mn-surface)!important;color:var(--mn-text-body)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+/* C6: category space is used for real settings; the modal stays comfortably
+   reachable on phones without tiny buttons or sideways-clipped labels. */
+.sh-setting-description{font:13px/1.65 system-ui;color:var(--mn-text-muted);margin:6px 0 18px;max-width:64ch}
+.sh-settings-note{padding:14px 16px;border:1px solid var(--mn-border);border-radius:12px;background:var(--mn-surface-secondary)}
+.sh-settings-note strong{font:600 14px/1.5 system-ui;color:var(--mn-text)}
+.sh-settings-note p{font:13px/1.6 system-ui;color:var(--mn-text-muted);margin:6px 0 0}
+.sh-appearance-preview{display:flex;flex-direction:column;gap:6px;max-width:450px;padding:18px;border:1px solid var(--mn-border);border-radius:14px;background:linear-gradient(135deg,var(--mn-selected),var(--mn-surface) 70%)}
+.sh-appearance-preview>span{font:500 11px/1.4 system-ui;color:var(--mn-text-muted)}
+.sh-appearance-preview strong{font:600 17px/1.4 system-ui;color:var(--mn-text)}
+.sh-appearance-preview p{font:13px/1.55 system-ui;color:var(--mn-text-body);margin:0}
+.sh-appearance-preview[data-density=compact]{padding:12px;gap:3px}
+@media(max-width:640px){
+ .sh-category-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;overflow-x:visible}
+ .sh-category-tabs button{min-width:0;flex-direction:column;gap:3px;padding:7px 1px;font-size:10px;overflow-wrap:anywhere;text-align:center}
+ .sh-category-tabs button svg{width:18px;height:18px}
+ .sh-settings-panel{padding:16px}
+}

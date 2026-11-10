@@ -17,3 +17,39 @@
 
 .le-library-result-copy :is(h2,h3) a{color:inherit;text-decoration:none}.le-library-result-copy :is(h2,h3) a:hover{text-decoration:underline}.le-area-hub{justify-content:flex-start;gap:8px 20px}.le-area-about{margin-left:0!important}@media(max-width:700px){.wp-workspace .v2-library-main .le-library-management{position:absolute;right:12px;top:4px;width:auto;min-height:44px}.v2-library-main{position:relative}.le-library-location{padding-right:78px}.le-area-hub{margin-block:8px}.le-area-introduction{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.le-library-toolbar{margin-block:10px}.le-library-query-status{margin-block:6px}.wp-workspace .le-library-location h1{font-size:22px}}
 @media(max-width:700px){.wp-workspace .v2-library-browser .le-library-heading{margin-bottom:10px}.wp-workspace .v2-library-browser .le-library-heading>h1{font-size:22px;margin-bottom:8px}.wp-workspace .v2-library-browser .le-library-location{margin-bottom:4px}.wp-workspace .v2-library-browser .le-library-location>span{display:none}.wp-workspace .v2-library-browser .le-area-introduction{font-size:14px;line-height:1.6;margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}.wp-workspace .v2-library-browser .le-library-toolbar{margin-block:8px}.wp-workspace .v2-library-browser .le-library-subject-articles{margin-top:14px}}
+/* C4: Library Subjects can be scanned as cards or a compact list. */
+.pc-library-layout-controls{display:flex;justify-content:flex-end;margin:6px 0 12px}.pc-library-layout{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 12px;border:1px solid var(--mn-border-control);border-radius:8px;color:var(--mn-text-muted);background:var(--mn-surface);cursor:pointer}.pc-library-layout:hover{background:var(--mn-surface-secondary);color:var(--mn-text)}.v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas{grid-template-columns:1fr;gap:7px}.v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas>.le-library-area{flex-direction:row;align-items:center;min-height:68px;padding:10px 15px;gap:14px}.v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas .le-library-summary{display:none}
+
+/* C6 Library: useful card rhythm, a genuinely compact alternate list, and
+   one control line. These are presentation-only; subject/article links stay put. */
+.wp-workspace .v2-library-browser{max-width:1320px}
+.wp-workspace .v2-library-browser .le-library-heading{margin-bottom:14px}
+.wp-workspace.v2-app .v2-library-browser .le-library-heading>h1{font-size:clamp(25px,2.6vw,34px);line-height:1.2;margin-bottom:8px}
+.wp-workspace .v2-library-browser .le-library-toolbar{gap:8px;margin-bottom:15px}
+.wp-workspace .v2-library-browser .pc-library-layout-controls{margin:0;flex:none}
+.wp-workspace .v2-library-browser .pc-library-layout{min-height:46px;padding:9px 12px;border-radius:10px;font-size:13px}
+.wp-workspace .v2-library-browser .le-library-areas{grid-template-columns:repeat(auto-fill,minmax(min(100%,292px),1fr));gap:14px}
+.wp-workspace .v2-library-browser .le-library-areas>.le-library-area{position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;min-height:142px;padding:20px;gap:12px;overflow:hidden;border:1px solid var(--mn-border);border-radius:14px;background:linear-gradient(155deg,color-mix(in srgb,var(--mn-selected) 26%,var(--mn-surface)) 0%,var(--mn-surface) 76%);box-shadow:0 1px 0 color-mix(in srgb,var(--mn-text) 5%,transparent);transition:border-color var(--mn-duration-fast),background var(--mn-duration-fast)}
+.wp-workspace .v2-library-browser .le-library-areas>.le-library-area::before{content:'';position:absolute;top:0;left:0;width:46px;height:3px;background:var(--mn-accent);border-radius:0 0 4px 0;opacity:.8}
+.wp-workspace .v2-library-browser .le-library-areas>.le-library-area:hover,.wp-workspace .v2-library-browser .le-library-areas>.le-library-area:focus-within{border-color:var(--mn-interactive);background:color-mix(in srgb,var(--mn-selected) 45%,var(--mn-surface))}
+.wp-workspace .v2-library-browser .le-library-areas .le-library-result-copy>h2{font:600 17px/1.42 system-ui,sans-serif;letter-spacing:-.015em;margin:1px 0 0}
+.wp-workspace .v2-library-browser .le-library-areas .le-library-result-copy>p.le-library-summary{font-size:13px;line-height:1.55;-webkit-line-clamp:3;margin-top:8px}
+.wp-workspace .v2-library-browser .le-library-areas .le-library-count{display:inline-flex;align-items:center;margin-top:12px;font-size:12px;color:var(--mn-text-muted);font-variant-numeric:tabular-nums}
+.wp-workspace .v2-library-browser .le-library-areas .le-library-result-actions{display:none}
+.wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas{grid-template-columns:1fr;gap:5px}
+.wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas>.le-library-area{min-height:0;flex-direction:row;align-items:center;padding:10px 16px;gap:12px;border-radius:10px;background:var(--mn-surface)}
+.wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas>.le-library-area::before{display:none}
+.wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas .le-library-result-copy{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}
+.wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas .le-library-result-copy>h2{font-size:15px;flex:1 1 210px}
+.wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas .le-library-count{margin:0;white-space:nowrap}
+.wp-workspace .v2-library-browser .le-library-results>.le-library-result{padding:13px 6px;border-color:var(--mn-border)}
+.wp-workspace .v2-library-browser .le-library-results>.le-library-result:hover{background:color-mix(in srgb,var(--mn-selected) 25%,transparent)}
+@media(max-width:700px){
+ .wp-workspace.v2-app .v2-library-browser .le-library-heading>h1{font-size:24px}
+ .wp-workspace .v2-library-browser .le-library-toolbar{align-items:stretch}
+ .wp-workspace .v2-library-browser .le-library-filters{display:flex;flex-wrap:wrap;width:100%}
+ .wp-workspace .v2-library-browser .le-library-filters>label{flex:1 1 105px}
+ .wp-workspace .v2-library-browser .le-library-areas{grid-template-columns:1fr;gap:9px}
+ .wp-workspace .v2-library-browser .le-library-areas>.le-library-area{min-height:105px;padding:16px 17px}
+ .wp-workspace .v2-library-browser:has(.pc-library-layout[aria-pressed=true]) .le-library-areas>.le-library-area{padding:10px 12px}
+}

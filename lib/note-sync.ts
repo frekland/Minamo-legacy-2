@@ -1,13 +1,45 @@
 import type {LearningScope} from './learning-spaces';
 import {parseNoteImagePlacements} from './note-image-placement';
-import type {ArticleSection,ContentPatch,PassagePart,CommandReceipt,RecordLink,WorkspaceCommand,WorkspaceRecord} from './contracts';
-export type NoteDraft={learningScope?:LearningScope;body:string;title:string;links:RecordLink[];baseRev:number;dirty:boolean;syncQueued?:boolean;intent:'create'|'update';bodyFormat?:'markdown-v1';attachmentSections?:ArticleSection[];inlineImages?:PassagePart[];imageReselectRequired?:boolean;sequence:number;dirtySince?:number;editedAt?:number;paused?:boolean;message?:string;creationContext?:{title:string;link:RecordLink};optionalTaskLink?:{title:string;link:RecordLink}};
+import type {ArticleSection,ContentPatch,PassageAnchor,PassagePart,CommandReceipt,RecordLink,WorkspaceCommand,WorkspaceRecord} from './contracts';
+import type {OptionalNoteConnection} from './note-capture-context';
+export type NoteDraft={learningScope?:LearningScope;body:string;title:string;links:RecordLink[];anchor?:PassageAnchor;baseRev:number;dirty:boolean;syncQueued?:boolean;intent:'create'|'update';bodyFormat?:'markdown-v1';attachmentSections?:ArticleSection[];inlineImages?:PassagePart[];imageReselectRequired?:boolean;sequence:number;dirtySince?:number;editedAt?:number;paused?:boolean;message?:string;creationContext?:{title:string;link:RecordLink};removedCreationContext?:{title:string;link:RecordLink};optionalTaskLink?:{title:string;link:RecordLink};optionalOriginLinks?:OptionalNoteConnection[]};
 export function sameNoteContext(a:RecordLink,b:RecordLink){return a.family===b.family&&a.id===b.id&&a.rendition===b.rendition&&a.sectionId===b.sectionId&&a.partId===b.partId;}
+/** Local creation metadata need not exist on another device: infer only unambiguous retained sources. */
+export function primaryNoteSourceLink(links:RecordLink[],explicit?:RecordLink,anchor?:PassageAnchor):RecordLink|undefined{
+ if(explicit)return explicit;
+ const anchored=anchor&&links.find(link=>link.id===anchor.articleId&&(!anchor.recordFamily||link.family===anchor.recordFamily));
+ return anchored??(links.length===1?links[0]:undefined);
+}
+/** A Note's primary source already has its own row; show only distinct extra links. */
+export function additionalNoteContexts(links:RecordLink[],source?:RecordLink){return source?links.filter(link=>!sameNoteContext(link,source)):links;}
+/** Remove one deliberately frozen source without changing original writing. */
+export function clearNoteCreationContext(draft:NoteDraft,now=Date.now()):NoteDraft{
+ const source=draft.creationContext;if(!source)return draft;
+ return editedNoteDraft(draft,{creationContext:undefined,removedCreationContext:structuredClone(source),links:draft.links.filter(link=>!sameNoteContext(link,source.link))},now);
+}
+/** Show the difference between a pending choice and a confirmed server link. */
+export function noteCreationSourceState(draft:NoteDraft|undefined,flight:NoteFlight|undefined,saved?:WorkspaceRecord|null){
+ const source=draft?.creationContext??draft?.removedCreationContext??flight?.sent.creationContext;
+ if(!source)return null;
+ if(draft?.removedCreationContext)return {source,status:'removal-pending' as const};
+ if(saved?.links.some(link=>sameNoteContext(link,source.link)))return {source,status:'saved' as const};
+ if(flight?.sent.links.some(link=>sameNoteContext(link,source.link)))return {source,status:draft?.paused?'save-unconfirmed' as const:'saving' as const};
+ return {source,status:'pending' as const};
+}
+export function noteLinkStatus(draft:NoteDraft|undefined,flight:NoteFlight|undefined,saved:WorkspaceRecord|undefined|null,link:RecordLink){
+ const buffered=!!draft?.links.some(item=>sameNoteContext(item,link));
+ const acknowledged=!!saved?.links.some(item=>sameNoteContext(item,link));
+ const sent=!!flight?.sent.links.some(item=>sameNoteContext(item,link));
+ if(!buffered)return acknowledged||sent?'removal-pending' as const:null;
+ if(acknowledged)return 'saved' as const;
+ if(sent)return draft?.paused?'save-unconfirmed' as const:'saving' as const;
+ return 'pending' as const;
+}
 /** Freeze author intent when the draft is created; navigation is never a relationship write. */
-export function newNoteDraft(context?:WorkspaceRecord|null,link?:RecordLink,links?:RecordLink[],optionalTaskLink?:{title:string;link:RecordLink}):NoteDraft{
+export function newNoteDraft(context?:WorkspaceRecord|null,link?:RecordLink,links?:RecordLink[],optionalTaskLink?:{title:string;link:RecordLink},anchor?:PassageAnchor,optionalOriginLinks?:OptionalNoteConnection[]):NoteDraft{
  const frozen=structuredClone(links??(context?[link??{family:context.family,id:context.id}]:[]));
  const primary=frozen[0];
- return {body:'',title:'',links:frozen,baseRev:0,dirty:false,intent:'create',bodyFormat:'markdown-v1',sequence:0,...(context&&primary?{creationContext:{title:context.title,link:structuredClone(primary)}}:{}),...(context&&!['investigation','journey'].includes(context.family)&&optionalTaskLink?{optionalTaskLink:structuredClone(optionalTaskLink)}:{})};
+ return {body:'',title:'',links:frozen,baseRev:0,dirty:false,intent:'create',bodyFormat:'markdown-v1',sequence:0,...(anchor?{anchor:structuredClone(anchor)}:{}),...(context&&primary?{creationContext:{title:context.title,link:structuredClone(primary)}}:{}),...(context&&!['investigation','journey'].includes(context.family)&&optionalTaskLink?{optionalTaskLink:structuredClone(optionalTaskLink)}:{}),...(context?.family==='experiment'&&optionalOriginLinks?.length?{optionalOriginLinks:structuredClone(optionalOriginLinks)}:{})};
 }
 /** The compact status describes the latest buffer, separately from explanatory recovery text. */
 export function noteSavePresentation(draft:NoteDraft|undefined,flight:NoteFlight|undefined,locallyRetained:boolean,running=false){
@@ -32,6 +64,7 @@ export function noteSaveCommand(draft:NoteDraft,id:string,operationId:string,new
  return {operationId,action:draft.intent==='create'?'create':'update',family:'note',id:draft.intent==='create'?newNoteId:id,
   ...(draft.intent==='update'?{expectedRev:draft.baseRev}:{}),
   data:{title:draft.title.trim()||'Untitled note',body:draft.body,...(draft.bodyFormat?{bodyFormat:draft.bodyFormat}:{}),links:draft.links,...attachment,
+   ...(draft.intent==='create'&&draft.anchor?{anchor:structuredClone(draft.anchor)}:{}),
    ...(draft.intent==='create'?{synthetic:false,...(draft.learningScope?{learningScope:draft.learningScope}:{})}:{})}};
 }
 export function savedNoteDraft(record:WorkspaceRecord):NoteDraft{return {...(record.learningScope?{learningScope:record.learningScope}:{}),body:record.body,title:record.title,links:record.links??[],baseRev:record.rev,dirty:false,intent:'update',sequence:0,inlineImages:(record.sections??[]).flatMap(section=>section.parts).filter(part=>parseNoteImagePlacements(record.body).some(marker=>marker.partId===part.id)),...(record.bodyFormat?{bodyFormat:record.bodyFormat}:{})};}
@@ -54,7 +87,10 @@ export function reconcileNoteReceipt(local:NoteDraft,flight:NoteFlight,receipt:C
  if(current&&current.rev!==committedRev)return {draft:{...local,baseRev:committedRev,intent:'update',paused:true,dirty:true,message:`Your save committed at revision ${committedRev}; current server revision is ${current.rev}. Compare before saving again.`},conflict:true,committedRev};
  const attachments=local.attachmentSections?.map(section=>({...section,parts:section.parts.filter(part=>!flight.sent.attachmentSections?.some(sent=>sent.parts.some(p=>p.id===part.id)))})).filter(section=>section.parts.length);
  const edited=local.sequence!==flight.sequence;
- return {draft:{...local,baseRev:committedRev,intent:'update',dirty:edited,syncQueued:edited,dirtySince:edited?Date.now():undefined,paused:false,attachmentSections:attachments,message:edited?'Newer writing retained · syncing…':`Saved · revision ${committedRev}`},conflict:false,committedRev};
+ const acknowledgedRemoval=!!local.removedCreationContext&&!!current&&current.rev===committedRev&&!current.links.some(link=>sameNoteContext(link,local.removedCreationContext!.link))&&!local.links.some(link=>sameNoteContext(link,local.removedCreationContext!.link));
+ const next={...local,baseRev:committedRev,intent:'update' as const,dirty:edited,syncQueued:edited,dirtySince:edited?Date.now():undefined,paused:false,attachmentSections:attachments,message:edited?'Newer writing retained · syncing…':`Saved · revision ${committedRev}`};
+ if(acknowledgedRemoval)delete next.removedCreationContext;
+ return {draft:next,conflict:false,committedRev};
 }
 export function closeNoteTab(tabs:string[],selected:string|null,id:string){const remaining=tabs.filter(tab=>tab!==id);return {tabs:remaining,selected:selected===id?(remaining.at(-1)??null):selected};}
 

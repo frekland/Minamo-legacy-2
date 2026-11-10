@@ -3,12 +3,12 @@ import type {LearningWorkTarget,CommandReceipt,Family,PassageAnchor,RecordLink,W
 export type {ReadingSelection} from './contracts';
 export type CaptureRef={family:'flag'|'annotation';id:string};
 export type ReadingLinkOptions={rendition?:string;selection?:ReadingSelection;captureRef?:CaptureRef};
-// Deployment origin is maintainer-configured, never derived from untrusted Host headers.
-export const MINAMO_SITE_ORIGIN=(typeof process!=='undefined'&&process.env?.NEXT_PUBLIC_MINAMO_SITE_ORIGIN)||'https://minamo.example';
+// Verified against the stable owner-private Sites project, not request Host headers.
+export const MINAMO_SITE_ORIGIN='https://minamo.jscymru.chatgpt.site';
 /** Stable import alias for older callers. The product hostname is Minamo. */
 export const MINAMO_V2_ORIGIN=MINAMO_SITE_ORIGIN;
 /** Historical V2 origin may be rewritten only for validated saved reading links. */
-export const RETIRED_MINAMO_SITE_ORIGIN='https://previous.minamo.example';
+export const RETIRED_MINAMO_SITE_ORIGIN='https://minamo-v2.jscymru.chatgpt.site';
 function boundedIdentity(value:unknown,label:string):string{if(typeof value!=='string'||!value.length||value.length>240||/[\u0000-\u001f\u007f]/.test(value))throw Error(`A bounded ${label} is required.`);return value;}
 export function qualifiedRef(ref:RecordLink):RecordLink{if(!ref||typeof ref.family!=='string'||!(FAMILIES as readonly string[]).includes(ref.family))throw Error('A valid record family is required.');return {family:ref.family,id:boundedIdentity(ref.id,'record ID')};}
 export function readingView(family:Family){switch(family){case'journey':return'journeys';case'investigation':return'investigations';case'article':case'area':return'library';case'source':return'sources';case'experiment':return'tools';default:return'work';}}

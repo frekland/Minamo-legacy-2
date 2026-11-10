@@ -71,7 +71,7 @@
 .wp-workspace.v2-app[data-layout] .rn-section>h2,
 .wp-workspace.v2-app[data-layout] .rn-reader-intro,
 .wp-workspace.v2-app[data-layout] .rn-source,
-.wp-workspace.v2-app[data-layout] .rn-stale{max-width:100%}
+.wp-workspace.v2-app[data-layout] .rn-stale{max-width:var(--wp-reading-measure)}
 .wp-workspace.v2-app[data-reading-width=narrow] .rn-part>p,
 .wp-workspace.v2-app[data-reading-width=narrow] .rn-reader-intro{max-width:58ch}
 .wp-workspace.v2-app[data-layout] .rn-reading-layout{display:block;min-width:0}

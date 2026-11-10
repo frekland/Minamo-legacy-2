@@ -18,6 +18,6 @@ test('single toggle switches scope without carrying an incompatible language',()
  assert.deepEqual(ui.choose({learningSpace:'all'}),{learningSpace:'languages'});
  assert.deepEqual(ui.choose({learningSpace:'unclassified'}),{learningSpace:'languages'});
 });
-test('public learning-space icons contain only inert local vector geometry',()=>{
- for(const name of ['computing','languages']){const svg=readFileSync('public/identity/learning-spaces/'+name+'.svg','utf8');assert.match(svg,/<svg /);assert.match(svg,/stroke="currentColor"/);assert.doesNotMatch(svg,/<script|<foreignObject|<image|\bon\w+=|\bhref=|javascript:/i);}
+test('owner-provided icon assets retain attribution and only inert vector geometry',()=>{
+ for(const [name,creator,count] of [['computing','Taufik-76',1],['languages','tezar tantular',2]]){const svg=readFileSync('public/identity/learning-spaces/'+name+'.svg','utf8');assert.match(svg,new RegExp(creator));assert.match(svg,/Noun Project/);assert.equal((svg.match(/<path /g)||[]).length,count);assert.doesNotMatch(svg,/<script|<foreignObject|<image|\bon\w+=|\bhref=|javascript:/i);assert.match(svg,/fill="currentColor"/);}
 });

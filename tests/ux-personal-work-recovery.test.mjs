@@ -1,24 +1,35 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url),wr=createRequire(require.resolve('wrangler/package.json')),{build}=wr('esbuild');
 async function load(path){const result=await build({entryPoints:[path],bundle:true,platform:'node',format:'esm',write:false,loader:{'.css':'empty'}});return import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'));}
 const {personalWorkKindLabel,personalRunDescription,personalRunPreview}=await load('app/personal-work-organiser.tsx');
 const {recoveryCountRows,recoveryOverviewRows,recoveryActivationProblem}=await load('app/recovery-panel.tsx');
 const base={family:'run',id:'TEST-ONLY-attempt',title:'TEST ONLY retained response',body:'Generic durable envelope',rev:1,links:[],createdAt:'2026-10-26T12:00:00.000Z',updatedAt:'2026-10-26T12:00:00.000Z',synthetic:true,evidence:'illustrative'};
-test('saved practice is identified as answers rather than tool execution',()=>{
+test('retired Activity Studio is disconnected while retained output remains readable',async()=>{
+ const workspace=await readFile('app/workspace.tsx','utf8');
+ const page=await readFile('app/page.tsx','utf8');
+ const organiser=await readFile('app/personal-work-organiser.tsx','utf8');
+ assert.doesNotMatch(workspace,/LegacyActivityViewer|ActivityReadingDisclosure|activityStudioEnabled/);
+ assert.doesNotMatch(page,/MINAMO_ACTIVITY_STUDIO|activityStudioEnabled/);
+ assert.match(workspace,/current\.family==='run'&&current\.outputBundle&&/);
+ assert.match(organiser,/\['run','Runs & output'\]/);
+ assert.doesNotMatch(organiser,/Attempts & runs|Open Activity/);
+});
+test('earlier responses are identified without restoring an attempt lifecycle',()=>{
  const record={...base,attempt:{practice:{responses:[{id:'r1',input:'Original'},{id:'r2',input:'Revised'}]},nextIntention:'Discuss the remaining uncertainty'}};
- assert.equal(personalWorkKindLabel(record),'Saved attempt');
- assert.equal(personalRunDescription(record),'Saved practice · 2 answer revisions');
- assert.equal(personalRunPreview(record),'Discuss the remaining uncertainty');
+ assert.equal(personalWorkKindLabel(record),'Archived response');
+ assert.equal(personalRunDescription(record),'Earlier response · 2 saved answers');
+ assert.equal(personalRunPreview(record),'Earlier supplied writing is retained with this record.');
  assert.doesNotMatch(personalRunDescription(record),/Recorded tool|Illustrative result/);
 });
 test('code submissions, reflections and observed tool Runs keep distinct descriptions',()=>{
- assert.equal(personalRunDescription({...base,attempt:{submission:{}}}),'Saved code submission · supplied files');
- assert.match(personalRunDescription({...base,attempt:{prediction:'A hypothesis'}}),/supplied thinking/);
+ assert.equal(personalRunDescription({...base,attempt:{submission:{}}}),'Earlier code submission · supplied files');
+ assert.match(personalRunDescription({...base,attempt:{prediction:'A hypothesis'}}),/Earlier supplied writing/);
  assert.equal(personalRunPreview({...base,attempt:{prediction:'A hypothesis'}}),'A hypothesis');
  const tool={...base,engine:'python',evidence:'observed',output:'actual output'};
- assert.equal(personalWorkKindLabel(tool),'Run');assert.match(personalRunDescription(tool),/^python · Recorded tool output/);assert.equal(personalRunPreview(tool),'actual output');
+ assert.equal(personalWorkKindLabel(tool),'Run');assert.equal(personalRunDescription(tool),'python · Recorded output');assert.equal(personalRunPreview(tool),'actual output');
 });
 test('recovery overview prioritises actual saved contents over classification metadata',()=>{
  const counts={v2_learning_scopes:73,v2_records:335,v2_revisions:824,v2_images:3,v2_media:2,v2_learning_developments:57,v2_catalogue_heads:83};

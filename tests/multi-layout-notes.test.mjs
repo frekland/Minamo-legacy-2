@@ -8,7 +8,7 @@ const built=await build({entryPoints:['lib/note-sync.ts'],bundle:true,format:'es
 const {savedNoteDraft,noteDraftForOpening,editedNoteDraft,noteSaveCommand,reconcileNoteReceipt}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
 const worker="import{domainHandler}from'./lib/domain-handler.ts';export default{fetch:domainHandler}";
 const ok=result=>{assert.equal(result.status,200,JSON.stringify(result.data));return result.data;};
-const body='TEST ONLY supplied Windows source\r\n\tconst home = "C:\\Users\\Learner\\Zombie Cat\\α 😺";\r\n\tconsole.log(home);\r\n';
+const body='TEST ONLY supplied Windows source\r\n\tconst home = "C:\\Users\\Jon\\Zombie Cat\\α 😺";\r\n\tconsole.log(home);\r\n';
 const contexts={a:[{family:'investigation',id:'TEST-ONLY-linux'}],b:[{family:'journey',id:'TEST-ONLY-cat'}]};
 async function seedContexts(c){for(const [name,links] of Object.entries(contexts))for(const link of links)ok(await c.command({operationId:'context-'+name,action:'create',family:link.family,id:link.id,data:{title:'TEST ONLY '+name+' task',body:'Isolated original task fixture.',synthetic:true}}));}
 

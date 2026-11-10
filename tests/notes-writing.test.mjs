@@ -3,6 +3,24 @@ const require=createRequire(import.meta.url),wr=createRequire(require.resolve('w
 async function module(path){const result=await build({entryPoints:[path],bundle:true,format:'esm',platform:'node',write:false,loader:{'.css':'empty'}});return import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'))}
 const {parseNoteMarkdown,noteMarkdownText,noteFormatChange,safeNoteLink}=await module('lib/note-markdown.ts');
 const {acknowledgeNoteIdentity,resizedNotesSize,clampNotesSize,escapePlainNoteForMarkdown}=await module('lib/notes-window.ts');
+const {additionalNoteContexts,primaryNoteSourceLink}=await module('lib/note-sync.ts');
+test('Note source is shown once; distinct contextual links remain available',()=>{
+ const source={family:'journey',id:'japanese-live',sectionId:'dialogue',rendition:'v1'};
+ const other={family:'article',id:'reading'};
+ const differentSection={...source,sectionId:'grammar'};
+ assert.deepEqual(additionalNoteContexts([source,other,differentSection],source),[other,differentSection]);
+ assert.deepEqual(additionalNoteContexts([source],source),[]);
+ assert.deepEqual(additionalNoteContexts([source],undefined),[source]);
+});
+test('a reopened Note finds its original source without browser-local creation metadata',()=>{
+ const project={family:'journey',id:'japanese-live',sectionId:'read'};
+ const other={family:'article',id:'grammar'};
+ const anchor={articleId:'japanese-live',recordFamily:'journey',rendition:'one',sectionId:'read',partId:'p',start:0,end:2,quote:'本'};
+ assert.equal(primaryNoteSourceLink([project],undefined,anchor),project);
+ assert.equal(primaryNoteSourceLink([other,project],undefined,anchor),project);
+ assert.equal(primaryNoteSourceLink([other,project]),undefined);
+ assert.equal(primaryNoteSourceLink([other,project],other),other);
+});
 test('headings, emphasis, lists, quotes, code and links share one deterministic readable projection',()=>{const source='# A **useful** idea\n\nA *small* [reference](https://example.com) and `x`.\n\n- First\n- Second\n> Keep uncertainty\n```python\nprint("😄")\n```';assert.equal(noteMarkdownText(source),'A useful idea\nA small reference and x.\nFirst\nSecond\nKeep uncertainty\nprint("😄")\n');const text=noteMarkdownText(source);for(const block of parseNoteMarkdown(source))for(const run of block.runs)assert.equal(text.slice(run.start,run.end),run.text)});
 test('canonical code normalises CRLF and CR to LF for SSR while authored source stays exact',()=>{const source='```python\r\nfirst\r\nα 😄 e\u0301\rthird\r\n```\r\n';assert.equal(noteMarkdownText(source),'first\nα 😄 e\u0301\nthird\n');assert.equal(source.includes('\r\n'),true);assert.equal(source.includes('e\u0301'),true);assert.equal(noteMarkdownText('```\n```'),'');});
 test('unsafe URLs remain literal text and HTML is never an executable codec node',()=>{assert.equal(safeNoteLink('javascript:alert(1)'),undefined);assert.equal(safeNoteLink('https://user:pass@example.com'),undefined);assert.equal(noteMarkdownText('[bad](javascript:alert(1)) <script>x</script>'),'[bad](javascript:alert(1)) <script>x</script>');assert.equal(parseNoteMarkdown('<script>x</script>')[0].kind,'paragraph')});

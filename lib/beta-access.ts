@@ -5,7 +5,7 @@ export async function principalScope(id:string){return Array.from(new Uint8Array
 export function siteIdentity(request:Request,env:BetaEnv){
  const id=request.headers.get('oai-authenticated-user-id'),email=request.headers.get('oai-authenticated-user-email');
  if(!id||!email||id.length>200)throw new DomainError(401,'sign_in_required','Sign in with ChatGPT to continue.');
- const hosts=(env.MINAMO_SITE_HOSTS??'minamo.example').split(',');
+ const hosts=(env.MINAMO_SITE_HOSTS??'minamo.jscymru.chatgpt.site').split(',');
  if(!hosts.includes(new URL(request.url).hostname))throw new DomainError(403,'host_denied','Open the invited Minamo Site.');
  return id;
 }

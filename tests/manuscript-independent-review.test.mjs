@@ -22,5 +22,5 @@ test('Journey references retain exact source stage identity for direct return fr
  test('new inline manuscript links use the current verified Minamo origin',async()=>{
  const compiled=await compileManuscript(input('# TEST ONLY current origin\n\n## Read\n\nOpen [the reference](minamo:reference).'));
  const links=compiled.pkg.records.flatMap(r=>(r.data.sections??[]).flatMap(s=>s.parts.flatMap(p=>p.inline??[]))).filter(s=>s.kind==='link');
- assert.ok(links.length);for(const link of links)assert.equal(new URL(link.url).origin,'https://minamo.example');
+ assert.ok(links.length);for(const link of links)assert.equal(new URL(link.url).origin,'https://minamo.jscymru.chatgpt.site');
  });

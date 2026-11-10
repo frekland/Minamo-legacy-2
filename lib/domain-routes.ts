@@ -1,13 +1,14 @@
 /** Shared production dispatch and method contract for the domain HTTP API. */
 export const DOMAIN_ROUTES: Readonly<Record<string, readonly string[]>> = {
- '/mcp':['POST'], '/api/projects/composition':['GET','POST'], '/api/projects/update':['POST'], '/api/notes/pin':['POST'], '/api/notes/pins':['GET','POST'],
+ '/api/test-runs':['GET','POST'], '/api/projects/runtime-config':['GET'], '/api/projects/observation':['POST'], '/mcp':['POST'], '/api/projects/composition':['GET','POST'], '/api/projects/changes':['GET'], '/api/projects/contributions':['GET','POST'], '/api/projects/update':['POST'], '/api/notes/pin':['POST'], '/api/notes/pins':['GET','POST'],
  '/api/workspace':['GET'], '/api/commands':['POST'], '/api/bookmarks':['POST'],
  '/api/preview':['POST'], '/api/query':['GET','POST'], '/api/context':['GET','POST'], '/api/operations':['GET','POST'],
  '/api/editorial-policy':['GET'], '/api/library':['GET','POST'], '/api/investigation-order':['GET'], '/api/project-context':['GET'], '/api/trash/empty':['GET','POST'],
  '/api/manuscripts/source':['GET'], '/api/manuscripts/preview':['POST'], '/api/manuscripts/publish':['POST'],
  '/api/authoring/preview':['POST'], '/api/authoring/apply':['POST'],
- '/api/activities/capabilities':['GET'], '/api/activities/browse':['GET'], '/api/activities/read':['GET','POST'], '/api/activities/project':['GET'],
- '/api/activities/preview':['POST'], '/api/activities/publish':['POST'], '/api/activities/hint':['POST'], '/api/activities/attempt':['POST'], '/api/activities/context':['POST'],
+ // Legacy Activity cartridges remain readable/downloadable. All submission,
+ // attempt, reveal and publication routes are retired; use Project contributions.
+ '/api/activities/read':['GET','POST'], '/api/activities/project':['GET'],
  '/api/learning-graph':['GET','POST'], '/api/learning-context':['GET','POST'], '/api/learning-scopes':['POST'], '/api/learning-relationships/candidates':['POST'], '/api/learning-relationships/confirm':['POST'], '/api/learning-developments':['POST'], '/api/learning-developments/revise':['POST'],
  '/api/recovery':['GET','POST'], '/api/recovery/export':['POST'], '/api/recovery/import':['POST'],
 };

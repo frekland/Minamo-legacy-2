@@ -45,8 +45,8 @@ test('malformed identifiers and unsafe return origins reject without a clipboard
 test('task handoff uses renamed verified Minamo and rejects stale or arbitrary Host origins',()=>{
  const record={family:'investigation',id:'TEST-ONLY-renamed',rendition:'retained-one'};
  const brief=task.buildTaskGptBrief({record});
- assert.equal(new URL(brief.returnTo).origin,'https://minamo.example');
+ assert.equal(new URL(brief.returnTo).origin,'https://minamo.jscymru.chatgpt.site');
  assert.equal(new URL(brief.returnTo).searchParams.get('rendition'),'retained-one');
  assert.match(brief.text,/Use the Minamo plugin/);
- for(const siteOrigin of ['https://previous.minamo.example','https://legacy.minamo.example','https://untrusted.invalid'])assert.throws(()=>task.buildTaskGptBrief({record,siteOrigin}),/verified Minamo/);
+ for(const siteOrigin of ['https://minamo-v2.jscymru.chatgpt.site','https://minamo-legacy.jscymru.chatgpt.site','https://untrusted.invalid'])assert.throws(()=>task.buildTaskGptBrief({record,siteOrigin}),/verified Minamo/);
 });

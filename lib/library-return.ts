@@ -1,16 +1,17 @@
 import type {WorkspaceRecord} from './contracts';
 import {learningSpaceFromParams,type LearningSpaceSelection} from './learning-space-navigation';
+import {tryLanguageTag} from './language-tags';
 export type LibraryReturn={query:string;href:string;subjectId?:string;selection:LearningSpaceSelection};
 const identifier=(value:unknown):value is string=>typeof value==='string'&&/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,159}$/.test(value);
 const facets=['search','areas','topics','references'],kinds=['','concept','python-function','shell-command','api','language-syntax','functions'],sorts=['title','updated','authored'];
-const spaces=['all','computing','languages','unclassified'],languages=['ja','zh-Hans','zh-Hant','fr','es','el','de','sv'];
+const spaces=['all','computing','languages','unclassified'];
 const allowed=new Set(['view','family','id','libraryFacet','libraryQuery','libraryKind','librarySort','learningSpace','language','returnJourney','returnStage']);
 const text=(value:unknown):value is string=>typeof value==='string'&&value.length<=200&&value.isWellFormed()&&!/[\u0000-\u001f\u007f]/.test(value);
 function canonical(params:URLSearchParams):LibraryReturn|null{
  if(params.get('view')!=='library')return null;const family=params.get('family'),id=params.get('id');
  if(family!==null&&family!=='area'||id!==null&&(family!=='area'||!identifier(id))||family==='area'&&!id)return null;
  const facet=params.get('libraryFacet'),query=params.get('libraryQuery'),kind=params.get('libraryKind'),sort=params.get('librarySort'),space=params.get('learningSpace'),language=params.get('language'),project=params.get('returnJourney'),step=params.get('returnStage');
- if(facet!==null&&!facets.includes(facet)||query!==null&&!text(query)||kind!==null&&!kinds.includes(kind)||sort!==null&&!sorts.includes(sort)||space!==null&&!spaces.includes(space)||language!==null&&(!languages.includes(language)||space!==null&&space!=='languages'&&space!=='all')||project!==null&&!identifier(project)||step!==null&&(!identifier(step)||!project))return null;
+ if(facet!==null&&!facets.includes(facet)||query!==null&&!text(query)||kind!==null&&!kinds.includes(kind)||sort!==null&&!sorts.includes(sort)||space!==null&&!spaces.includes(space)||language!==null&&(!tryLanguageTag(language)||space!==null&&space!=='languages'&&space!=='all')||project!==null&&!identifier(project)||step!==null&&(!identifier(step)||!project))return null;
  const p=new URLSearchParams({view:'library'});if(id){p.set('family','area');p.set('id',id);}for(const key of ['libraryFacet','libraryQuery','libraryKind','librarySort','learningSpace','language','returnJourney','returnStage']){const value=params.get(key);if(value!==null)p.set(key,value);}
  if(language!==null&&space===null)p.set('learningSpace','languages');const value=p.toString();return {query:value,href:'/?'+value,...(id?{subjectId:id}:{}),selection:learningSpaceFromParams(p)};
 }

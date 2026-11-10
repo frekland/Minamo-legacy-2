@@ -24,11 +24,12 @@ test('numbered route collection displays natural phase and numeric title order w
  assert.deepEqual(rows.sort(api.compareLearningTitles).map(r=>r.title.match(/Phase (\w+)/)[1]),['I','II','III','IV']);
  assert.deepEqual([{title:'Project 10'},{title:'Project 2'}].sort(api.compareLearningTitles).map(r=>r.title),['Project 2','Project 10']);
 });
-test('native save review is bound to exact impact token and ordinary tool navigation clears stale selected article',()=>{
+test('native save review retains its impact token and legacy tools remain outside primary navigation',()=>{
  const source=readFileSync('app/workspace.tsx','utf8');
  assert.match(source,/reviewedEditToken===currentEditToken/);
  assert.match(source,/originalSections=\{record\?\.sections\?\?\[\]\}/);
  assert.match(source,/onEditReviewChange=\{setEditReviewed\}/);
- assert.match(source,/event\.preventDefault\(\);navigate\('tools'\)/);
+ assert.doesNotMatch(source,/Practical tools<\/a>/);
+ assert.match(source,/view==='tools'&&toolsTargetReady/);
  assert.doesNotMatch(source,/navigate\('tools',current\?\.id/);
 });
