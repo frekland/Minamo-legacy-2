@@ -19,6 +19,10 @@
 | V159 | `cf2db53d1a866f6953a51e57f9559e6dd0bc31b3` | `appgdep_6af4bfae15bc819199d473e50fae97bc`, succeeded |
 | V160 | `c143716f631f3ae4d94d3c72810d5fd75103d9fb` | `appgdep_6af4c4091c808191afd259a9705bf437`, succeeded |
 
+## Owner decision — tldraw deferred (11 November 2026)
+
+The owner confirms that the working tldraw licence is available only in production Minamo. **Defer tldraw functionality/acceptance in the Visual Lab. It is not a blocker to completing the remaining substantive PR #99 Lab scope or preparing for the owner's assessment.** Preserve the existing drawing implementation, saved data and truthful unavailable status. Do not pursue Lab licensing, copy production credentials, bypass the licence gate or deploy production. Drawing save/reload/image/conflict/MCP acceptance remains explicitly unverified in the Lab and may be revisited in a separately authorised integration phase.
+
 ## Implemented
 
 ### Shared saved-reference projection
@@ -84,7 +88,7 @@ Radio Island composition read still returned r36 and all **eight available files
 
 The retained synthetic private image rendered in the browser. The packaged game created an isolated frame, but remained white at “Runtime loading”; its frame declared the pygame-web 0.9 bootstrap script. This session did **not** establish successful game execution or the cause of the blank frame. Stop removed the frame and returned “Stopped.” Earlier successful game reports are historical evidence, not a pass for this run.
 
-Drawing create/save/reload/conflict acceptance is **blocked by the live licence gate**. A valid site-accepted `TLDRAW_LICENSE_KEY` is required before that acceptance can finish. Do not erase its saved Note/assets or bypass licensing.
+Drawing create/save/reload/conflict acceptance is **owner-deferred for the Lab** because the working licence is only in production. It does not block the remaining Lab scope. Preserve its saved Note/assets and unavailable status; do not pursue a Lab key or bypass licensing.
 
 Mobile viewport controls were attempted, but the observed viewport remained 1363×936. **No mobile-width pass is claimed.** Browser native AX/screenshot observations sometimes lagged DOM actions; later acceptance used fresh Playwright DOM snapshots and screenshots. Do not misdiagnose those stale observations as proven app navigation failures.
 
@@ -117,7 +121,7 @@ namespace version **1364**, **13,802,955 bytes**, state ready / valid true. Veri
 | MCP preferences | Live cached-write and Project-preview denials verified/restored; client catalogue refresh not demonstrated |
 | Home / Projects / Library / Your Work | Improved; comprehensive final owner-experience assessment incomplete |
 | Notes dock | Opening/readback observed; automated edit interrupted/restored, so edit/concurrency acceptance incomplete |
-| Drawing | Runtime licence gate; truthful error fixed; actual drawing acceptance blocked |
+| Drawing | **Owner-deferred, non-blocking for Lab completion**; working licence only in production, truthful error fixed, actual Lab drawing acceptance unverified |
 | Images / code packages | Retained image rendered; Radio inventory exact/available; deeper interactive matrix incomplete |
 | Packaged game / Python Canvas | Game blank in this run; Stop passed. Canvas not re-executed this session |
 | Japanese dialogue, TTS, furigana, repetitive instructions | Retained functionality; remaining browser/audio/editorial acceptance not completed this session |
@@ -128,7 +132,7 @@ namespace version **1364**, **13,802,955 bytes**, state ready / valid true. Veri
 ## Resume here
 
 1. Read this report, current PR/architecture and actual **V160 private source**. Do not reconcile public/private source or deploy production.
-2. Address the site-accepted tldraw licence configuration through the normal owner-controlled secret flow; do not request a key in chat or weaken the licence gate. Then test create/save/reload/image/drawing conflicts and MCP drawing readback.
+2. **Skip owner-deferred tldraw acceptance.** The working licence is only in production; preserve the Lab implementation/data/error state. No Lab licensing work or production credential transfer is requested. Continue with the remaining Lab scope.
 3. Investigate the blank packaged-game runtime, and re-execute a retained Python Canvas. Preserve exact source/output authority.
 4. Finish post-V160 connection-click and management-feed browser checks, mobile navigation/Notes layouts, Japanese dialogue/furigana/TTS/editorial density, and broader live pagination/revocation/preferences/concurrency acceptance.
 5. Reassess every original PR objective and update the readiness matrix. Do not describe Lab scope as finished merely because V160 deployed.
