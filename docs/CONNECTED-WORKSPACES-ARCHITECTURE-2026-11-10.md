@@ -5,7 +5,10 @@
 ## Product intention
 Minamo should preserve not only what someone knows or makes, but how their curiosity, questions and understanding develop. Its surfaces—Projects, Library, Notes, My Work and ChatGPT via MCP—should be different views of one durable, source-grounded workspace.
 
-## Agreed setup sequence
+## Original setup sequence — superseded by the owner's 11 November decision
+
+The following was the *initial* commissioning order, retained for history. It is **not** a prerequisite to continuing Lab development. The active sequence is: finish the substantive PR #99 Lab scope → owner personally evaluates and requests iterations → verify and reconcile public/private source parity → consider a separately authorised production migration. Do not block Lab work on source reconciliation now.
+
 1. Record and reconcile the **actual deployed production V149** source (`665d70b3ad64bc0e1a0df1e030ac9b47a69ead0a`) against `frekland/Minamo`. Promote reviewed shared implementation, preserving public licensing/contributor files and excluding protected/private runtime material. Verify the resulting public source code matches the deployed implementation. Documentation-only steps do not cause production deployment.
 2. Reset the **existing** Minamo Visual Lab Site (`appgprj_6aeba0aa528c81918be19dd51427b2cb`) to the production-equivalent code and MCP, preserving the lab Site identity and **its own** D1/R2 resources. Do not copy production data or credentials. The existing V95 lab deployment remains a recoverable historical version. Publish the clean lab baseline, then perform auth, persistence, MCP and browser smoke checks.
 3. Only then start architecture work in the lab. Do not merge this PR or promote it to the live Minamo Site merely because the lab works.
