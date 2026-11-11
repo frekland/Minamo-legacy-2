@@ -94,3 +94,19 @@ Architecture scope agreed. Baseline reconciliation and lab replacement are track
 - **After that:** reassess optional Work UX, Notes/Library relationships, collaboration preferences, legacy read-only checkpoint language and native package depth against the cross-domain evidence.
 
 Do not treat the example Projects as prescribed Project templates or impose fields, stages or required Work threads on real users.
+
+## 11 November owner priority and Lab authoring policy — before V139+
+
+**Decision: complete the substantive PR #99 product scope in the existing owner-private Visual Lab before source reconciliation.** The Lab is intentionally experimental and the owner will make a comprehensive personal UX/product assessment **after** functional scope is substantially complete. Source reconciliation/public reviewable code, production parity audit and promotion remain explicit later gates, **not blockers to Lab iteration**. Do not prioritise branch byte parity over finishing the Lab. Production V149 remains untouched; PR #99 stays draft/unmerged.
+
+**Explicit authoring permission for testing:** During Lab development it is welcome, and sometimes necessary, to create, populate, revise, link, annotate, flag or retire realistic **Lab-only** Projects, independent Notes, Library material, research artefacts, dialog, source files, activities and substantial long histories. There is no quota, snippet limit or requirement to reuse whatever happens to be in the Lab. Use the amount and complexity genuinely needed to exercise functionality, including lengthy multi-subject examples and correction histories. Do not repeatedly stop for permission to author suitable Lab fixtures.
+
+This permission is **not** permission to fabricate actual user achievements, real-world measurements, external observations, source rights, GPT execution or human conversations. Make synthetic/GPT/owner/supplied/browser-reported provenance and uncertain claims explicit, retain exact editions and CAS/rights boundaries, and preserve meaningful existing development (Japanese, Cherwell, creative, Radio Island/Python and other Labs) unless a deliberate integrity-preserving change is necessary. The general product must continue to support standalone Notes and investigations; no mandatory Work thread, checkpoints, progress dashboard, Activity/Attempt workflow or GPT handoff file.
+
+**Next Lab-first integrated slices:**
+1. A coherent low-friction relationship/discovery journey across Home, Projects, Notes, Library and Your Work, including unlinked material and older revisions; no semantic inference disguised as persisted relationships.
+2. Server-persisted and user-visible collaboration preference behaviour (context depth, related sources and initiative) with negative permissions/edge-case acceptance, not just preference UI.
+3. Realistic multi-domain longitudinal authoring, conflicting evidence, annotations, flags, revisions and permissions, including browser/MCP recovery and concurrency.
+4. UX consolidation and deliberate deprecation of duplicate/legacy concepts after acceptance; keep distinct readers and executables as subject-specific adapters to a common model.
+
+**Sequence:** Lab development and deep acceptance → owner's hands-on evaluation and requested iteration → reviewed source reconciliation and production parity → separate owner-authorised production promotion.
