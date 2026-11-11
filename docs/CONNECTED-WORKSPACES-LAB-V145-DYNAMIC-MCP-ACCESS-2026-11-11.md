@@ -18,7 +18,7 @@ The code also corrected an MCP schema discrepancy from V144: `learningScope.spac
 - Private source commit: `9c934f228c4298c779d1850eb61d586255d02c7c`.
 - Owner-private Visual Lab: [minamo-visual-lab.jscymru.chatgpt.site](https://minamo-visual-lab.jscymru.chatgpt.site/).
 - Saved Site version: **V145**.
-- Deployment: `appgdep_6af490d9d8d4819182f4d39a16e29f8a`. The native deploy job was initially asynchronous; record terminal status separately before claiming deployment success.
+- Deployment: `appgdep_6af490d9d8d4819182f4d39a16e29f8a`. **Succeeded**, MCP present, as confirmed by the native deployment status after the pending build.
 
 ## Acceptance
 
